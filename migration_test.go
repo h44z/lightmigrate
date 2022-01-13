@@ -5,7 +5,7 @@ import (
 )
 
 func TestNewMigrations(t *testing.T) {
-	m := NewMigrations()
+	m := newMigrations()
 	if m.migrations == nil {
 		t.Fatalf("migrations uninitialized")
 	}
@@ -15,7 +15,7 @@ func TestNewMigrations(t *testing.T) {
 }
 
 func Test_migrations_Append(t *testing.T) {
-	m := NewMigrations()
+	m := newMigrations()
 
 	ok := m.Append(&migration{})
 	if !ok {
@@ -27,7 +27,7 @@ func Test_migrations_Append(t *testing.T) {
 }
 
 func Test_migrations_Append_Multi(t *testing.T) {
-	m := NewMigrations()
+	m := newMigrations()
 
 	ok := m.Append(&migration{Version: 1})
 	if !ok {
@@ -43,7 +43,7 @@ func Test_migrations_Append_Multi(t *testing.T) {
 }
 
 func Test_migrations_Append_Duplicate(t *testing.T) {
-	m := NewMigrations()
+	m := newMigrations()
 
 	ok := m.Append(&migration{Version: 1})
 	if !ok {
@@ -59,7 +59,7 @@ func Test_migrations_Append_Duplicate(t *testing.T) {
 }
 
 func Test_migrations_Append_Nil(t *testing.T) {
-	m := NewMigrations()
+	m := newMigrations()
 
 	ok := m.Append(nil)
 	if ok {
@@ -68,7 +68,7 @@ func Test_migrations_Append_Nil(t *testing.T) {
 }
 
 func Test_migrations_Down(t *testing.T) {
-	m := NewMigrations()
+	m := newMigrations()
 	mig := &migration{Version: 1, Direction: Down}
 	m.Append(mig)
 
@@ -84,7 +84,7 @@ func Test_migrations_Down(t *testing.T) {
 }
 
 func Test_migrations_Down_NoMigration(t *testing.T) {
-	m := NewMigrations()
+	m := newMigrations()
 	mig := &migration{Version: 1, Direction: Up}
 	m.Append(mig)
 
@@ -95,7 +95,7 @@ func Test_migrations_Down_NoMigration(t *testing.T) {
 }
 
 func Test_migrations_First(t *testing.T) {
-	m := NewMigrations()
+	m := newMigrations()
 	m.Append(&migration{Version: 2, Direction: Down})
 	m.Append(&migration{Version: 1, Direction: Down})
 	m.Append(&migration{Version: 3, Direction: Down})
@@ -110,7 +110,7 @@ func Test_migrations_First(t *testing.T) {
 }
 
 func Test_migrations_First_NoMigration(t *testing.T) {
-	m := NewMigrations()
+	m := newMigrations()
 
 	version, ok := m.First()
 	if ok {
@@ -122,7 +122,7 @@ func Test_migrations_First_NoMigration(t *testing.T) {
 }
 
 func Test_migrations_Next(t *testing.T) {
-	m := NewMigrations()
+	m := newMigrations()
 	m.Append(&migration{Version: 2, Direction: Down})
 	m.Append(&migration{Version: 1, Direction: Down})
 	m.Append(&migration{Version: 3, Direction: Down})
@@ -137,7 +137,7 @@ func Test_migrations_Next(t *testing.T) {
 }
 
 func Test_migrations_Next_FromStart(t *testing.T) {
-	m := NewMigrations()
+	m := newMigrations()
 	m.Append(&migration{Version: 2, Direction: Down})
 	m.Append(&migration{Version: 1, Direction: Down})
 	m.Append(&migration{Version: 3, Direction: Down})
@@ -152,7 +152,7 @@ func Test_migrations_Next_FromStart(t *testing.T) {
 }
 
 func Test_migrations_Next_NoNext(t *testing.T) {
-	m := NewMigrations()
+	m := newMigrations()
 	m.Append(&migration{Version: 2, Direction: Down})
 	m.Append(&migration{Version: 1, Direction: Down})
 	m.Append(&migration{Version: 3, Direction: Down})
@@ -167,7 +167,7 @@ func Test_migrations_Next_NoNext(t *testing.T) {
 }
 
 func Test_migrations_Prev(t *testing.T) {
-	m := NewMigrations()
+	m := newMigrations()
 	m.Append(&migration{Version: 2, Direction: Down})
 	m.Append(&migration{Version: 1, Direction: Down})
 	m.Append(&migration{Version: 3, Direction: Down})
@@ -182,7 +182,7 @@ func Test_migrations_Prev(t *testing.T) {
 }
 
 func Test_migrations_Prev_NoPrev(t *testing.T) {
-	m := NewMigrations()
+	m := newMigrations()
 	m.Append(&migration{Version: 2, Direction: Down})
 	m.Append(&migration{Version: 1, Direction: Down})
 	m.Append(&migration{Version: 3, Direction: Down})
@@ -197,7 +197,7 @@ func Test_migrations_Prev_NoPrev(t *testing.T) {
 }
 
 func Test_migrations_Up(t *testing.T) {
-	m := NewMigrations()
+	m := newMigrations()
 	mig := &migration{Version: 1, Direction: Up}
 	m.Append(mig)
 
@@ -213,7 +213,7 @@ func Test_migrations_Up(t *testing.T) {
 }
 
 func Test_migrations_Up_NoMigration(t *testing.T) {
-	m := NewMigrations()
+	m := newMigrations()
 	mig := &migration{Version: 1, Direction: Down}
 	m.Append(mig)
 
@@ -224,7 +224,7 @@ func Test_migrations_Up_NoMigration(t *testing.T) {
 }
 
 func Test_migrations_buildIndex(t *testing.T) {
-	m := NewMigrations()
+	m := newMigrations()
 
 	ok := m.Append(&migration{Version: 1})
 	if !ok {
@@ -237,7 +237,7 @@ func Test_migrations_buildIndex(t *testing.T) {
 }
 
 func Test_migrations_findPos(t *testing.T) {
-	m := NewMigrations()
+	m := newMigrations()
 	m.Append(&migration{Version: 1})
 
 	pos := m.findPos(1)
@@ -247,7 +247,7 @@ func Test_migrations_findPos(t *testing.T) {
 }
 
 func Test_migrations_findPos_Invalid(t *testing.T) {
-	m := NewMigrations()
+	m := newMigrations()
 	m.Append(&migration{Version: 1})
 
 	pos := m.findPos(2)
@@ -257,7 +257,7 @@ func Test_migrations_findPos_Invalid(t *testing.T) {
 }
 
 func Test_migrations_findPos_Empty(t *testing.T) {
-	m := NewMigrations()
+	m := newMigrations()
 	pos := m.findPos(1)
 	if pos != -1 {
 		t.Fatalf("pos should be -1, got: %d", pos)

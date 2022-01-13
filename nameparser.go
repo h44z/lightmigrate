@@ -6,6 +6,7 @@ import (
 	"strconv"
 )
 
+// ErrParse describes a filename parsing error.
 var ErrParse = fmt.Errorf("no match")
 
 // Regex matches the following pattern:
@@ -13,8 +14,8 @@ var ErrParse = fmt.Errorf("no match")
 //  123_name.down.ext
 var Regex = regexp.MustCompile(`^([0-9]+)_(.*)\.(` + string(Down) + `|` + string(Up) + `)\.(.*)$`)
 
-// ParseFileName returns migration for matching Regex pattern.
-func ParseFileName(raw string) (*migration, error) {
+// parseFileName returns migration for matching Regex pattern.
+func parseFileName(raw string) (*migration, error) {
 	m := Regex.FindStringSubmatch(raw)
 	if len(m) == 5 {
 		versionUint64, err := strconv.ParseUint(m[1], 10, 64)

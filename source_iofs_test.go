@@ -21,7 +21,7 @@ func getTestSource(t *testing.T, folder string) *fsSource {
 	if err != nil {
 		t.Fatalf("unable to setup source: %v", err)
 	}
-	return source
+	return source.(*fsSource)
 }
 
 func TestNewFsSource(t *testing.T) {
@@ -253,7 +253,7 @@ func Test_fsSource_open_NoSuchFile(t *testing.T) {
 func Test_fsSource_init(t *testing.T) {
 	fsys := os.DirFS("test")
 	f := &fsSource{
-		migrations: NewMigrations(),
+		migrations: newMigrations(),
 		fsys:       fsys,
 		path:       "sample-migrations",
 	}
@@ -270,7 +270,7 @@ func Test_fsSource_init(t *testing.T) {
 func Test_fsSource_init_NoMigrations(t *testing.T) {
 	fsys := os.DirFS("test")
 	f := &fsSource{
-		migrations: NewMigrations(),
+		migrations: newMigrations(),
 		fsys:       fsys,
 		path:       "no-migrations",
 	}
@@ -287,7 +287,7 @@ func Test_fsSource_init_NoMigrations(t *testing.T) {
 func Test_fsSource_init_DuplicateMigrations(t *testing.T) {
 	fsys := os.DirFS("test")
 	f := &fsSource{
-		migrations: NewMigrations(),
+		migrations: newMigrations(),
 		fsys:       fsys,
 		path:       "duplicate-migrations",
 	}

@@ -6,8 +6,10 @@ import "sort"
 type Direction string
 
 const (
+	// Down direction is used when migrations should be reverted.
 	Down Direction = "down"
-	Up   Direction = "up"
+	// Up direction is the default direction for migrations.
+	Up Direction = "up"
 )
 
 // migrations wraps migration and has an internal index
@@ -36,7 +38,7 @@ type migration struct {
 	Raw string
 }
 
-func NewMigrations() *migrations {
+func newMigrations() *migrations {
 	return &migrations{
 		index:      make([]uint64, 0),
 		migrations: make(map[uint64]map[Direction]*migration),

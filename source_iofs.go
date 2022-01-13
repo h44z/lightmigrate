@@ -16,9 +16,9 @@ type fsSource struct {
 }
 
 // NewFsSource returns a new MigrationSource from io/fs#FS and a relative path.
-func NewFsSource(fsys fs.FS, basePath string) (*fsSource, error) {
+func NewFsSource(fsys fs.FS, basePath string) (MigrationSource, error) {
 	f := &fsSource{
-		migrations: NewMigrations(),
+		migrations: newMigrations(),
 		fsys:       fsys,
 		path:       basePath,
 	}
@@ -43,7 +43,7 @@ func (f *fsSource) init() error {
 		if e.IsDir() {
 			continue
 		}
-		m, err := ParseFileName(e.Name())
+		m, err := parseFileName(e.Name())
 		if err != nil {
 			continue
 		}

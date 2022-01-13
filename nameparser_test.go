@@ -135,13 +135,13 @@ func TestParseFileName(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got, err := ParseFileName(tt.filename)
+			got, err := parseFileName(tt.filename)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("ParseFileName() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("parseFileName() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("ParseFileName() got = %v, want %v", got, tt.want)
+				t.Errorf("parseFileName() got = %v, want %v", got, tt.want)
 			}
 		})
 	}

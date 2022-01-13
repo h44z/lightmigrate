@@ -9,7 +9,8 @@ import (
 	"sync"
 )
 
-var NoMigrationVersion uint64 = 0
+// NoMigrationVersion is a constant for version 0.
+const NoMigrationVersion uint64 = 0
 
 // Migrator is a generic interface that provides compatibility with golang-migrate migrator.
 type Migrator interface {
@@ -26,6 +27,8 @@ type migrator struct {
 	verbose  bool
 }
 
+// MigratorOption is a function that can be used within the migrator constructor to
+// modify the migrator object.
 type MigratorOption func(svc *migrator)
 
 type migrationData struct {
@@ -42,7 +45,8 @@ func (m migrationData) Error() error {
 	return m.error
 }
 
-func NewMigrator(source MigrationSource, driver MigrationDriver, opts ...MigratorOption) (*migrator, error) {
+// NewMigrator instantiates a new migrator.
+func NewMigrator(source MigrationSource, driver MigrationDriver, opts ...MigratorOption) (Migrator, error) {
 	m := &migrator{
 		source: source,
 		driver: driver,
@@ -57,12 +61,14 @@ func NewMigrator(source MigrationSource, driver MigrationDriver, opts ...Migrato
 	return m, nil
 }
 
+// WithLogger sets the logging instance used by the migrator.
 func WithLogger(logger Logger) MigratorOption {
 	return func(m *migrator) {
 		m.logger = logger
 	}
 }
 
+// WithVerboseLogging sets the verbose flag of the migrator.
 func WithVerboseLogging(verbose bool) MigratorOption {
 	return func(m *migrator) {
 		m.verbose = verbose

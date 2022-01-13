@@ -5,6 +5,7 @@ import (
 	"os"
 )
 
+// ErrDuplicateMigration is used to signal a duplicate migration file (with the same version number).
 type ErrDuplicateMigration struct {
 	migration
 	os.FileInfo
@@ -16,8 +17,11 @@ func (e ErrDuplicateMigration) Error() string {
 }
 
 var (
-	ErrDatabaseDirty     = fmt.Errorf("database contains unsucessful migration")
-	ErrNoChange          = fmt.Errorf("no change")
+	// ErrDatabaseDirty is used to signal a dirty database.
+	ErrDatabaseDirty = fmt.Errorf("database contains unsucessful migration")
+	// ErrNoChange is used to signal that no migration is necessary.
+	ErrNoChange = fmt.Errorf("no change")
+	// ErrVersionNotAllowed is used to signal that the version 0 is not a valid version.
 	ErrVersionNotAllowed = fmt.Errorf("version 0 is not allowed")
 )
 

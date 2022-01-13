@@ -19,6 +19,9 @@ validate: dep
 	$(GOCMD) vet $(GOFILES)
 	$(GOCMD) test -race $(GOFILES)
 
+lint: dep # requires go install golang.org/x/lint/golint
+	golint -set_exit_status=1 $(GOFILES)
+
 coverage: dep
 	$(GOCMD) test $(GOFILES) -v -coverprofile .testCoverage.txt
 	$(GOCMD) tool cover -func=.testCoverage.txt  # use total:\s+\(statements\)\s+(\d+.\d+\%) as Gitlab CI regextotal:\s+\(statements\)\s+(\d+.\d+\%)

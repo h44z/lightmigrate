@@ -12,10 +12,10 @@ import (
 
 func getTestMigrator() *migrator {
 	d, _ := test.NewMockDriver()
-	s, _ := test.NewAdvancedMockSource(1, 2)
+	s, _ := test.NewMockSource(1, 2)
 	m, _ := NewMigrator(s, d)
 
-	return m
+	return m.(*migrator)
 }
 
 func TestNewMigrator(t *testing.T) {
@@ -53,7 +53,7 @@ func Test_migrationData_Error(t *testing.T) {
 
 func Test_migrator_GetMigrations(t *testing.T) {
 	m := getTestMigrator()
-	s, _ := test.NewAdvancedMockSource(1, 2)
+	s, _ := test.NewMockSource(1, 2)
 	m.source = s
 
 	migrations := make(chan *migrationData)
@@ -77,7 +77,7 @@ func Test_migrator_GetMigrations(t *testing.T) {
 
 func Test_migrator_GetMigrations_NoChange(t *testing.T) {
 	m := getTestMigrator()
-	s, _ := test.NewAdvancedMockSource(1, 2)
+	s, _ := test.NewMockSource(1, 2)
 	m.source = s
 
 	migrations := make(chan *migrationData)
@@ -89,7 +89,7 @@ func Test_migrator_GetMigrations_NoChange(t *testing.T) {
 
 func Test_migrator_GetMigrations_Shutdown(t *testing.T) {
 	m := getTestMigrator()
-	s, _ := test.NewAdvancedMockSource(1, 3)
+	s, _ := test.NewMockSource(1, 3)
 	m.source = s
 	m.shutdown = make(chan bool, 1)
 
@@ -124,7 +124,7 @@ func Test_migrator_GetMigrations_Shutdown(t *testing.T) {
 
 func Test_migrator_GetMigrations_MultiUp(t *testing.T) {
 	m := getTestMigrator()
-	s, _ := test.NewAdvancedMockSource(1, 3)
+	s, _ := test.NewMockSource(1, 3)
 	m.source = s
 
 	migrations := make(chan *migrationData)
@@ -148,7 +148,7 @@ func Test_migrator_GetMigrations_MultiUp(t *testing.T) {
 
 func Test_migrator_GetMigrations_MultiUpZero(t *testing.T) {
 	m := getTestMigrator()
-	s, _ := test.NewAdvancedMockSource(1, 3)
+	s, _ := test.NewMockSource(1, 3)
 	m.source = s
 
 	migrations := make(chan *migrationData)
@@ -172,7 +172,7 @@ func Test_migrator_GetMigrations_MultiUpZero(t *testing.T) {
 
 func Test_migrator_GetMigrations_MultiDown(t *testing.T) {
 	m := getTestMigrator()
-	s, _ := test.NewAdvancedMockSource(1, 3)
+	s, _ := test.NewMockSource(1, 3)
 	m.source = s
 
 	migrations := make(chan *migrationData)
@@ -196,7 +196,7 @@ func Test_migrator_GetMigrations_MultiDown(t *testing.T) {
 
 func Test_migrator_GetMigrations_MultiDownZero(t *testing.T) {
 	m := getTestMigrator()
-	s, _ := test.NewAdvancedMockSource(1, 3)
+	s, _ := test.NewMockSource(1, 3)
 	m.source = s
 
 	migrations := make(chan *migrationData)
@@ -220,7 +220,7 @@ func Test_migrator_GetMigrations_MultiDownZero(t *testing.T) {
 
 func Test_migrator_GetMigrations_WrongTarget(t *testing.T) {
 	m := getTestMigrator()
-	s, _ := test.NewAdvancedMockSource(1, 2)
+	s, _ := test.NewMockSource(1, 2)
 	m.source = s
 
 	migrations := make(chan *migrationData)
@@ -232,7 +232,7 @@ func Test_migrator_GetMigrations_WrongTarget(t *testing.T) {
 
 func Test_migrator_Migrate(t *testing.T) {
 	m := getTestMigrator()
-	s, _ := test.NewAdvancedMockSource(1, 3)
+	s, _ := test.NewMockSource(1, 3)
 	m.source = s
 
 	err := m.Migrate(2)
@@ -243,7 +243,7 @@ func Test_migrator_Migrate(t *testing.T) {
 
 func Test_migrator_Migrate_NoChange(t *testing.T) {
 	m := getTestMigrator()
-	s, _ := test.NewAdvancedMockSource(1, 3)
+	s, _ := test.NewMockSource(1, 3)
 	m.source = s
 
 	err := m.Migrate(NoMigrationVersion)
@@ -254,7 +254,7 @@ func Test_migrator_Migrate_NoChange(t *testing.T) {
 
 func Test_migrator_Migrate_DriverError(t *testing.T) {
 	m := getTestMigrator()
-	s, _ := test.NewAdvancedMockSource(1, 3)
+	s, _ := test.NewMockSource(1, 3)
 	m.source = s
 	m.driver.(*test.MockDriver).Error = errors.New("lockerror")
 
@@ -266,7 +266,7 @@ func Test_migrator_Migrate_DriverError(t *testing.T) {
 
 func Test_migrator_Migrate_DriverDirty(t *testing.T) {
 	m := getTestMigrator()
-	s, _ := test.NewAdvancedMockSource(1, 3)
+	s, _ := test.NewMockSource(1, 3)
 	m.source = s
 	m.driver.(*test.MockDriver).Dirty = true
 
@@ -278,7 +278,7 @@ func Test_migrator_Migrate_DriverDirty(t *testing.T) {
 
 func Test_migrator_Migrate_SourceError(t *testing.T) {
 	m := getTestMigrator()
-	s, _ := test.NewAdvancedMockSource(1, 3)
+	s, _ := test.NewMockSource(1, 3)
 	s.Error = errors.New("sourcerror")
 	m.source = s
 
