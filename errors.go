@@ -18,7 +18,7 @@ func (e ErrDuplicateMigration) Error() string {
 
 var (
 	// ErrDatabaseDirty is used to signal a dirty database.
-	ErrDatabaseDirty = fmt.Errorf("database contains unsucessful migration")
+	ErrDatabaseDirty = fmt.Errorf("database contains unsuccessful migration")
 	// ErrNoChange is used to signal that no migration is necessary.
 	ErrNoChange = fmt.Errorf("no change")
 	// ErrVersionNotAllowed is used to signal that the version 0 is not a valid version.

@@ -1,11 +1,13 @@
 # LightMigrate - a lightweight database migration library
 
-[![Build Status](https://travis-ci.com/h44z/lightmigrate.svg?token=q4pSqaqT58Jzpxdx62xk&branch=master)](https://travis-ci.com/h44z/lightmigrate)
+[![codecov](https://codecov.io/gh/h44z/lightmigrate/branch/master/graph/badge.svg?token=MMAOVBLL2U)](https://codecov.io/gh/h44z/lightmigrate)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](https://opensource.org/licenses/MIT)
+[![GoDoc](https://pkg.go.dev/badge/github.com/h44z/lightmigrate)](https://pkg.go.dev/github.com/h44z/lightmigrate)
 ![GitHub last commit](https://img.shields.io/github/last-commit/h44z/lightmigrate)
 [![Go Report Card](https://goreportcard.com/badge/github.com/h44z/lightmigrate)](https://goreportcard.com/report/github.com/h44z/lightmigrate)
 ![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/h44z/lightmigrate)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/h44z/lightmigrate)
+[![GitHub Release](https://img.shields.io/github/release/h44z/lightmigrate.svg)](https://github.com/h44z/lightmigrate/releases)
 
 This library is heavily inspired by [golang-migrate](https://github.com/golang-migrate/migrate).
 
