@@ -31,7 +31,7 @@ func NewFsSource(fsys fs.FS, basePath string) (MigrationSource, error) {
 	return f, nil
 }
 
-// init prepares not initialized IoFS instance to read migrations from a
+// init prepares not initialized IoFS instance to read migrations from an
 // io/fs#FS instance and a relative path.
 func (f *fsSource) init() error {
 	entries, err := fs.ReadDir(f.fsys, f.path)
@@ -108,7 +108,7 @@ func (f *fsSource) Prev(version uint64) (prevVersion uint64, err error) {
 		return version, nil
 	}
 	return 0, &fs.PathError{
-		Op:   "prev for version " + strconv.FormatUint(uint64(version), 10),
+		Op:   "prev for version " + strconv.FormatUint(version, 10),
 		Path: f.path,
 		Err:  fs.ErrNotExist,
 	}

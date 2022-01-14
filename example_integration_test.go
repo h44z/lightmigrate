@@ -1,9 +1,10 @@
 package lightmigrate
 
 import (
-	"github.com/h44z/lightmigrate/test"
 	"os"
 	"testing"
+
+	"github.com/h44z/lightmigrate/test"
 )
 
 var sampleFileRoot = "test"

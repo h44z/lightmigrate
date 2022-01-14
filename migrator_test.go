@@ -3,11 +3,12 @@ package lightmigrate
 import (
 	"bytes"
 	"errors"
-	"github.com/h44z/lightmigrate/test"
 	"io"
 	"log"
 	"reflect"
 	"testing"
+
+	"github.com/h44z/lightmigrate/test"
 )
 
 func getTestMigrator() *migrator {

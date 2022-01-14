@@ -17,6 +17,7 @@ But it is completely restructured to minimize the dependency footprint.
 
 ## Currently Supported databases
  - [MongoDB](https://github.com/h44z/lightmigrate-mongodb) 
+ - [MySQL / MariaDB](https://github.com/h44z/lightmigrate-mysql) 
 
 ## Usage example:
 
@@ -29,7 +30,7 @@ if err != nil {
 }
 defer source.Close()
 
-driver, err := test.NewMockDriver() // Database Driver (for example lightmigrate_mongo.NewDriver())
+driver, err := test.NewMockDriver() // Database Driver (for example mongodb.NewDriver() or mysql.NewDriver())
 if err != nil {
     t.Fatalf("unable to setup driver: %v", err)
 }

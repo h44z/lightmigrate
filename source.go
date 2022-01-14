@@ -6,6 +6,7 @@ import (
 
 // MigrationSource is the interface every migration source must implement.
 type MigrationSource interface {
+	// Closer will clean up the migration source instance.
 	io.Closer
 
 	// First returns the very first migration version available.

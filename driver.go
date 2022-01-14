@@ -4,6 +4,8 @@ import "io"
 
 // MigrationDriver is the interface every database driver must implement.
 type MigrationDriver interface {
+	// Closer will clean up the driver instance. It depends on the driver implementation
+	// if the underlying database connections gets closed.
 	io.Closer
 
 	// Lock should acquire a database lock so that only one migration process
