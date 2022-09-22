@@ -18,6 +18,7 @@ But it is completely restructured to minimize the dependency footprint.
 ## Currently Supported databases
  - [MongoDB](https://github.com/h44z/lightmigrate-mongodb) 
  - [MySQL / MariaDB](https://github.com/h44z/lightmigrate-mysql) 
+ - [sqlite3](https://github.com/h44z/lightmigrate-sqlite) 
 
 ## Usage example:
 
